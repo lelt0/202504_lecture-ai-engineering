@@ -53,9 +53,12 @@ def test_compare_models(prepare_data):
     with open(MASTER_MODEL_PATH, "rb") as old_model_f:
         old_model: RandomForestClassifier = pickle.load(old_model_f)
 
+    print()
     new_predictions = new_model.predict(X_test)
     new_accuracy = accuracy_score(y_test, new_predictions)
     print("new_accuracy", new_accuracy)
     old_predictions = old_model.predict(X_test)
     old_accuracy = accuracy_score(y_test, old_predictions)
     print("old_accuracy", old_accuracy)
+
+    assert new_accuracy >= old_accuracy - 0.2

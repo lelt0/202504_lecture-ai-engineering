@@ -45,4 +45,4 @@ jobs:
         python day5/演習3/train_model.py -v
         git fetch origin master
         git show origin/master:day5/演習3/models/titanic_model.pkl > day5/演習3/models/titanic_model_master.pkl
-        pytest day5/演習3/tests/compare_model.py -v
+        pytest day5/演習3/tests/compare_model.py -v -s
