@@ -116,6 +116,7 @@ def load_mlflow_models():
         order_by=["start_time DESC"],
         max_results=2,
     )
+    print("total run count: ", len(runs))
     if len(runs) < 2:
         raise ValueError("Need at least two runs to compare.")
 
