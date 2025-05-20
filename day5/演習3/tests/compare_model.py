@@ -55,8 +55,7 @@ def test_compare_models(prepare_data):
 
     new_predictions = new_model.predict(X_test)
     new_accuracy = accuracy_score(y_test, new_predictions)
+    print("new_accuracy", new_accuracy)
     old_predictions = old_model.predict(X_test)
     old_accuracy = accuracy_score(y_test, old_predictions)
-
-    print("new_accuracy", new_accuracy)
     print("old_accuracy", old_accuracy)
