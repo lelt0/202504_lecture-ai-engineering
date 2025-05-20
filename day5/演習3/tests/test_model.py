@@ -130,9 +130,9 @@ def test_model_inference_time(train_model):
     model.predict(X_test)
     end_time = time.time()
 
-    inference_time = end_time - start_time
-
     time.sleep(2)
+
+    inference_time = end_time - start_time
 
     # 推論時間が1秒未満であることを確認
     assert inference_time < 1.0, f"推論時間が長すぎます: {inference_time}秒"
