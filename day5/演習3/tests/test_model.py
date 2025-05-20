@@ -110,7 +110,7 @@ def load_mlflow_models():
     experiment = mlflow.get_experiment_by_name(EXPERIMENT_NAME)
     if experiment is None:
         raise ValueError(f"Experiment '{EXPERIMENT_NAME}' not found.")
-    
+
     runs = mlflow.search_runs(
         experiment_ids=[experiment.experiment_id],
         order_by=["start_time DESC"],
@@ -145,11 +145,11 @@ def test_compare_accuracy(load_mlflow_models):
     """モデルの精度を前回のモデルと比較"""
     model1, model2 = load_mlflow_models
 
-    model1_metric = model1['metrics.accuracy']
-    model2_metric = model2['metrics.accuracy']
+    model1_metric = model1["metrics.accuracy"]
+    model2_metric = model2["metrics.accuracy"]
 
-    print(f'model1_metric: {model1_metric}')
-    print(f'model2_metric: {model2_metric}')
+    print(f"model1_metric: {model1_metric}")
+    print(f"model2_metric: {model2_metric}")
 
 
 def test_model_inference_time(train_model):
