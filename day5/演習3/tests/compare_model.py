@@ -41,7 +41,7 @@ def prepare_data(test_size=0.2, random_state=42):
     return X_train, X_test, y_train, y_test
 
 
-def compare_models(prepare_data):
+def test_compare_models(prepare_data):
     """masterブランチにあるモデルと精度を比較"""
     _, X_test, _, y_test = prepare_data
 
