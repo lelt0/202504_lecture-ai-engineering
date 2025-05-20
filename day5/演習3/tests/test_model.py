@@ -128,9 +128,8 @@ def test_model_inference_time(train_model):
     # 推論時間の計測
     start_time = time.time()
     model.predict(X_test)
-    end_time = time.time()
-
     time.sleep(2)
+    end_time = time.time()
 
     inference_time = end_time - start_time
 
