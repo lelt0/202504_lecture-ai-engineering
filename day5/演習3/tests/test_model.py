@@ -11,7 +11,6 @@ from sklearn.impute import SimpleImputer
 from sklearn.preprocessing import OneHotEncoder, StandardScaler
 from sklearn.compose import ColumnTransformer
 from sklearn.pipeline import Pipeline
-import mlflow
 
 # テスト用データとモデルパスを定義
 DATA_PATH = os.path.join(os.path.dirname(__file__), "../data/Titanic.csv")
@@ -103,26 +102,6 @@ def train_model(sample_data, preprocessor):
     return model, X_test, y_test
 
 
-@pytest.fixture
-def load_mlflow_models():
-    """前回モデルのロード"""
-    EXPERIMENT_NAME = "titanic-survival-prediction-pytest"
-    experiment = mlflow.get_experiment_by_name(EXPERIMENT_NAME)
-    if experiment is None:
-        raise ValueError(f"Experiment '{EXPERIMENT_NAME}' not found.")
-
-    runs = mlflow.search_runs(
-        experiment_ids=[experiment.experiment_id],
-        order_by=["start_time DESC"],
-        max_results=2,
-    )
-    print("total run count: ", len(runs))
-    if len(runs) < 2:
-        raise ValueError("Need at least two runs to compare.")
-
-    return runs.iloc[0], runs.iloc[1]
-
-
 def test_model_exists():
     """モデルファイルが存在するか確認"""
     if not os.path.exists(MODEL_PATH):
@@ -140,17 +119,6 @@ def test_model_accuracy(train_model):
 
     # Titanicデータセットでは0.75以上の精度が一般的に良いとされる
     assert accuracy >= 0.75, f"モデルの精度が低すぎます: {accuracy}"
-
-
-def test_compare_accuracy(load_mlflow_models):
-    """モデルの精度を前回のモデルと比較"""
-    model1, model2 = load_mlflow_models
-
-    model1_metric = model1["metrics.accuracy"]
-    model2_metric = model2["metrics.accuracy"]
-
-    print(f"model1_metric: {model1_metric}")
-    print(f"model2_metric: {model2_metric}")
 
 
 def test_model_inference_time(train_model):
